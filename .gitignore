@@ -1,0 +1,11 @@
+.DS_Store
+.atom/
+.idea
+*.iml
+.vscode/
+.packages
+.pub/
+build/
+ios/.generated/
+packages
+.flutter-plugins
