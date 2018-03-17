@@ -1,59 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:readaton/app_state.dart';
+import 'package:readaton/middleware.dart';
+import 'package:readaton/modules/boot_page/boot_page.dart';
+import 'package:readaton/modules/tabs_page/tabs_page.dart';
+import 'package:readaton/reducer.dart';
+import 'package:readaton/theme.dart';
+import 'package:redux/redux.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(new ReadatonApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
-      );
-}
+class ReadatonApp extends StatelessWidget {
+  final Store<AppState> _store = new Store<AppState>(
+    appStateReducer,
+    initialState: const AppState.init(),
+    middleware: appMiddleware,
+  );
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  AppSection _extractCurrentSection(Store<AppState> store) =>
+      store.state.currentSection;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'You have pushed the button this many times:',
+  Widget build(_) => new StoreProvider(
+        store: _store,
+        child: new StoreConnector<AppState, AppSection>(
+          distinct: true,
+          converter: _extractCurrentSection,
+          builder: (__, currentSection) => new MaterialApp(
+                title: 'Readaton',
+                theme: ReadathonTheme.themes[currentSection],
+                home: new BootPage(
+                  childBuilder: (_) => new TabsPage(),
+                ),
               ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.display1,
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
         ),
       );
 }
