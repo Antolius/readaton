@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:readaton/app_state.dart';
+import 'package:readaton/modules/books_list/books_list.dart';
 
 class TabContents extends StatelessWidget {
   final AppSection currentSection;
@@ -14,7 +15,7 @@ class TabContents extends StatelessWidget {
     switch (currentSection) {
       case AppSection.BOOKS:
         return new Container(
-          child: new Text(currentSection.toString()),
+          child: new BooksList(),
         );
       case AppSection.GOALS:
         return new Container(

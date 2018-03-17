@@ -29,9 +29,9 @@ class ReadatonApp extends StatelessWidget {
           builder: (__, currentSection) => new MaterialApp(
                 title: 'Readaton',
                 theme: ReadathonTheme.themes[currentSection],
-                home: new BootPage(
-                  childBuilder: (_) => new TabsPage(),
-                ),
+                routes: {
+                  '/': (context) => new BootPage(child: new TabsPage())
+                },
               ),
         ),
       );

@@ -7,20 +7,21 @@ import 'package:readaton/modules/boot_page/components/booting_page.dart';
 import 'package:redux/redux.dart';
 
 class BootPage extends StatelessWidget {
-  final WidgetBuilder childBuilder;
+  final Widget child;
 
   BootPage({
-    @required this.childBuilder,
+    @required this.child,
   });
 
   bool _extractIsBooted(Store<AppState> store) => store.state.isBooted;
+
+
 
   @override
   Widget build(BuildContext context) => new StoreConnector<AppState, bool>(
         onInit: (Store store) => store.dispatch(new BootAppAction()),
         distinct: true,
         converter: _extractIsBooted,
-        builder: (context, isBooted) =>
-            isBooted ? childBuilder(context) : new BootingPage(),
+        builder: (context, isBooted) => isBooted ? child : new BootingPage(),
       );
 }
