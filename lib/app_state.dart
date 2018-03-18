@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
 
 class AppState {
   final AppSection currentSection;
@@ -6,6 +7,7 @@ class AppState {
   final Map<String, Book> books;
   final Map<String, Author> authors;
   final Map<String, ReadingProgression> progressions;
+  final BooksListPage booksListPage;
 
   AppState({
     this.currentSection,
@@ -13,6 +15,7 @@ class AppState {
     this.books,
     this.authors,
     this.progressions,
+    this.booksListPage,
   });
 
   const AppState.init()
@@ -20,7 +23,8 @@ class AppState {
         isBooted = false,
         books = const {},
         authors = const {},
-        progressions = const {};
+        progressions = const {},
+        booksListPage = const BooksListPage();
 
   AppState copyWith({
     AppSection currentSection,
@@ -28,6 +32,7 @@ class AppState {
     Map<String, Book> books,
     Map<String, Author> authors,
     Map<String, ReadingProgression> progressions,
+    BooksListPage booksListPage,
   }) =>
       new AppState(
         currentSection: currentSection ?? this.currentSection,
@@ -35,6 +40,34 @@ class AppState {
         books: books ?? this.books,
         authors: authors ?? this.authors,
         progressions: progressions ?? this.progressions,
+        booksListPage: booksListPage ?? this.booksListPage,
+      );
+}
+
+enum ReadingStatus { UNTOUCHED, READING, FINISHED }
+enum BooksSortParam { LAST_READ, FRACTION_DONE }
+enum SortDirection { ASC, DESC }
+
+class BooksListPage {
+  final Optional<ReadingStatus> statusFilter;
+  final BooksSortParam sortBy;
+  final SortDirection sortDirection;
+
+  const BooksListPage({
+    this.statusFilter = const Optional.absent(),
+    this.sortBy = BooksSortParam.LAST_READ,
+    this.sortDirection = SortDirection.DESC,
+  });
+
+  BooksListPage copyWith({
+    Optional<ReadingStatus> statusFilter,
+    BooksSortParam sortBy,
+    SortDirection sortDirection,
+  }) =>
+      new BooksListPage(
+        statusFilter: statusFilter ?? this.statusFilter,
+        sortBy: sortBy ?? this.sortBy,
+        sortDirection: sortDirection ?? this.sortDirection,
       );
 }
 
