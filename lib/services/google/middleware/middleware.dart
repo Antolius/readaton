@@ -22,7 +22,10 @@ final _mockBooksOnBoot =
   Map<String, Book> books = {};
   Map<String, Author> authors = {};
   for (Map<String, dynamic> googleBook in googleResponse['items']) {
-    new GoogleBookParser(googleBook).populate(books, authors);
+    final pageCount = googleBook['volumeInfo']['pageCount'];
+    if (pageCount != null && pageCount > 0) {
+      new GoogleBookParser(googleBook).populate(books, authors);
+    }
   }
   store.dispatch(new MockAction(
     mockBooks: books,
@@ -48,7 +51,7 @@ Map<String, ReadingProgression> _mockProgressionsFor(Map<String, Book> books) {
       ));
   final _rndUpdate = (Book book) => new ReadingUpdate(
         madeOn: _rndDateTime(),
-        pagesRead: random.nextInt((book.numbedOfPages / 3).floor()),
+        pagesRead: random.nextInt((book.numbedOfPages / 3).ceil()),
       );
 
   Map<String, ReadingProgression> progression = {};
@@ -68,7 +71,7 @@ Map<String, ReadingProgression> _mockProgressionsFor(Map<String, Book> books) {
       return new ReadingProgression(
         updates: [
           new ReadingUpdate(
-            madeOn: _rndDateTime(),
+            madeOn: _rndDateTime().subtract(new Duration(days: 20)),
             pagesRead: book.numbedOfPages,
           )
         ],

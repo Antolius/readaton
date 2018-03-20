@@ -13,8 +13,10 @@ class BookCard extends StatelessWidget {
   final String bookId;
 
   BookCard({
+    Key key,
     @required this.bookId,
-  });
+  })
+      : super(key: key);
 
   final Map<ReadingStatus, _BookCardBuilder> _cardBuilders = {
     ReadingStatus.UNTOUCHED: (_, model) => new UntouchedBookCard(book: model),
@@ -25,7 +27,6 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       new StoreConnector<AppState, BookViewModel>(
-        key: new ObjectKey(bookId),
         distinct: true,
         converter: (store) => new BookViewModel.from(store, bookId),
         builder: (context, model) =>

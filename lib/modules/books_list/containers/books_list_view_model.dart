@@ -17,6 +17,14 @@ class BooksListViewModel {
 
   bool get isNotEmpty => bookIds.isNotEmpty;
 
+  int get listStateHash => bookIds.fold(
+      9, (hash, next) => hash ^ next.hashCode ^ _pagesReadFor(next));
+
+  int stateHashFor(String bookId) => bookId.hashCode ^ _pagesReadFor(bookId);
+
+  int _pagesReadFor(String bookId) =>
+      _store.state.progressions[bookId]?.pagesRead ?? 0;
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -58,8 +66,9 @@ class BooksListViewModel {
             processedIds.add(new _SortableId(bookId, lastReadOn));
             break;
           case BooksSortParam.FRACTION_DONE:
-            final done = progress[bookId]?.pagesRead ?? 0 / book.numbedOfPages;
-            processedIds.add(new _SortableId(bookId, done.ceil()));
+            final pagesRead = (progress[bookId]?.pagesRead ?? 0);
+            final fractionDone = 100 * pagesRead / book.numbedOfPages;
+            processedIds.add(new _SortableId(bookId, fractionDone.ceil()));
             break;
         }
       }

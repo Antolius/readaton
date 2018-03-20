@@ -13,16 +13,25 @@ class FullBooksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => new Container(
+        key: new ObjectKey(model.listStateHash),
         color: Colors.black12,
         child: new ListView.builder(
           itemCount: model.bookIds.length + 1,
           itemBuilder: (_, index) => index == 0
               ? new BooksListControls(
+                  key: new ObjectKey('controls'),
                   currentPage: model.page,
                   onFilter: model.filter,
                   onSort: model.sort,
                 )
-              : new BookCard(bookId: model.bookIds[index - 1]),
+              : new BookCard(
+                  key: new ObjectKey(_bookHashFor(index)),
+                  bookId: _bookIdFor(index),
+                ),
         ),
       );
+
+  int _bookHashFor(int index) => model.stateHashFor(_bookIdFor(index));
+
+  String _bookIdFor(int index) => model.bookIds[index - 1];
 }

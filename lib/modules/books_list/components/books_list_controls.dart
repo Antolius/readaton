@@ -16,10 +16,12 @@ class BooksListControls extends StatelessWidget {
   final SortCallback onSort;
 
   BooksListControls({
+    Key key,
     @required this.currentPage,
     @required this.onFilter,
     @required this.onSort,
-  });
+  })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => new ButtonTheme.bar(
