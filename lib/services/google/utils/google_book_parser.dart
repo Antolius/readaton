@@ -41,7 +41,7 @@ class GoogleBookParser {
 
   Book _parseBook(List<String> authorIds) => new Book(
         title: googleBook.pluck('volumeInfo.title', ''),
-        numbedOfPages: googleBook.pluck('volumeInfo.pageCount', 0),
+        numberOfPages: googleBook.pluck('volumeInfo.pageCount', 0),
         coverImageUrl: googleBook.pluckFirst([
           'volumeInfo.imageLinks.extraLarge',
           'volumeInfo.imageLinks.large',

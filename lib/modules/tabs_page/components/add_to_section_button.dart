@@ -1,13 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:readaton/app_state.dart';
+import 'package:readaton/modules/book_editor_page/book_editor_page.dart';
 
 class AddToSectionButton extends StatelessWidget {
   static final _fabs = {
     AppSection.BOOKS: (BuildContext context) => new FloatingActionButton(
           child: const Icon(Icons.add),
           tooltip: 'Add a new book',
-          onPressed: () => Navigator.pushNamed(context, '/books/add'),
+          onPressed: () => Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (_) => new BookEditorPage(),
+                ),
+              ),
         ),
     AppSection.GOALS: (BuildContext context) => new FloatingActionButton(
           child: const Icon(Icons.add),

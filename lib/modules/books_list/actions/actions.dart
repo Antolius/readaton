@@ -1,7 +1,7 @@
 import 'package:readaton/app_state.dart';
 
 class UpdateBooksListPageAction {
-  final BooksListPage newPage;
+  final BooksListPageState newPage;
 
   const UpdateBooksListPageAction(this.newPage);
 }

@@ -7,7 +7,8 @@ class AppState {
   final Map<String, Book> books;
   final Map<String, Author> authors;
   final Map<String, ReadingProgression> progressions;
-  final BooksListPage booksListPage;
+  final BooksListPageState booksListPage;
+  final BookEditorPageState bookEditorPage;
 
   AppState({
     this.currentSection,
@@ -16,6 +17,7 @@ class AppState {
     this.authors,
     this.progressions,
     this.booksListPage,
+    this.bookEditorPage,
   });
 
   const AppState.init()
@@ -24,7 +26,8 @@ class AppState {
         books = const {},
         authors = const {},
         progressions = const {},
-        booksListPage = const BooksListPage();
+        booksListPage = const BooksListPageState(),
+        bookEditorPage = const BookEditorPageState();
 
   AppState copyWith({
     AppSection currentSection,
@@ -32,7 +35,8 @@ class AppState {
     Map<String, Book> books,
     Map<String, Author> authors,
     Map<String, ReadingProgression> progressions,
-    BooksListPage booksListPage,
+    BooksListPageState booksListPage,
+    BookEditorPageState bookEditorPage,
   }) =>
       new AppState(
         currentSection: currentSection ?? this.currentSection,
@@ -41,30 +45,41 @@ class AppState {
         authors: authors ?? this.authors,
         progressions: progressions ?? this.progressions,
         booksListPage: booksListPage ?? this.booksListPage,
+        bookEditorPage: bookEditorPage ?? this.bookEditorPage,
       );
+}
+
+class BookEditorPageState {
+  final String addedAuthorId;
+
+  const BookEditorPageState({this.addedAuthorId});
+
+  BookEditorPageState copyWith({String addedAuthorId}) =>
+      new BookEditorPageState(
+          addedAuthorId: addedAuthorId ?? this.addedAuthorId);
 }
 
 enum ReadingStatus { UNTOUCHED, READING, FINISHED }
 enum BooksSortParam { LAST_READ, FRACTION_DONE }
 enum SortDirection { ASC, DESC }
 
-class BooksListPage {
+class BooksListPageState {
   final Optional<ReadingStatus> statusFilter;
   final BooksSortParam sortBy;
   final SortDirection sortDirection;
 
-  const BooksListPage({
+  const BooksListPageState({
     this.statusFilter = const Optional.absent(),
     this.sortBy = BooksSortParam.LAST_READ,
     this.sortDirection = SortDirection.DESC,
   });
 
-  BooksListPage copyWith({
+  BooksListPageState copyWith({
     Optional<ReadingStatus> statusFilter,
     BooksSortParam sortBy,
     SortDirection sortDirection,
   }) =>
-      new BooksListPage(
+      new BooksListPageState(
         statusFilter: statusFilter ?? this.statusFilter,
         sortBy: sortBy ?? this.sortBy,
         sortDirection: sortDirection ?? this.sortDirection,
@@ -77,7 +92,7 @@ class Book {
   final String title;
   final String subtitle;
   final String synopsis;
-  final int numbedOfPages;
+  final int numberOfPages;
   final String coverImageUrl;
   final List<String> authors;
 
@@ -85,7 +100,7 @@ class Book {
     @required this.title,
     this.subtitle = '',
     this.synopsis = '',
-    @required this.numbedOfPages,
+    @required this.numberOfPages,
     @required this.coverImageUrl,
     @required this.authors,
   });

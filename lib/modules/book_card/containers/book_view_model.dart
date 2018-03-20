@@ -24,7 +24,7 @@ class BookViewModel {
             .map((authorId) => _author(_store, authorId)?.name)
             .where((name) => name != null)
             .toList(growable: false),
-        numberOfPages = _book(_store, bookId).numbedOfPages,
+        numberOfPages = _book(_store, bookId).numberOfPages,
         numberOfReadPages = _progression(_store, bookId)?.pagesRead ?? 0,
         lastReadOn = _lastUpdate(_progression(_store, bookId))
             .transform((update) => update.madeOn);

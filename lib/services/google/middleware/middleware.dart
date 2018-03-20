@@ -51,7 +51,7 @@ Map<String, ReadingProgression> _mockProgressionsFor(Map<String, Book> books) {
       ));
   final _rndUpdate = (Book book) => new ReadingUpdate(
         madeOn: _rndDateTime(),
-        pagesRead: random.nextInt((book.numbedOfPages / 3).ceil()),
+        pagesRead: random.nextInt((book.numberOfPages / 3).ceil()),
       );
 
   Map<String, ReadingProgression> progression = {};
@@ -72,7 +72,7 @@ Map<String, ReadingProgression> _mockProgressionsFor(Map<String, Book> books) {
         updates: [
           new ReadingUpdate(
             madeOn: _rndDateTime().subtract(new Duration(days: 20)),
-            pagesRead: book.numbedOfPages,
+            pagesRead: book.numberOfPages,
           )
         ],
       );

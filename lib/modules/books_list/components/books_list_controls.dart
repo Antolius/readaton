@@ -11,7 +11,7 @@ typedef void SortCallback(
 );
 
 class BooksListControls extends StatelessWidget {
-  final BooksListPage currentPage;
+  final BooksListPageState currentPage;
   final FilterCallback onFilter;
   final SortCallback onSort;
 

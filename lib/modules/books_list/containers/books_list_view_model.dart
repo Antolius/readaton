@@ -13,7 +13,7 @@ class BooksListViewModel {
       : bookIds = _extractBookIds(_store),
         totalBooksCount = _store.state.books.length;
 
-  BooksListPage get page => _store.state.booksListPage;
+  BooksListPageState get page => _store.state.booksListPage;
 
   bool get isNotEmpty => bookIds.isNotEmpty;
 
@@ -67,7 +67,7 @@ class BooksListViewModel {
             break;
           case BooksSortParam.FRACTION_DONE:
             final pagesRead = (progress[bookId]?.pagesRead ?? 0);
-            final fractionDone = 100 * pagesRead / book.numbedOfPages;
+            final fractionDone = 100 * pagesRead / book.numberOfPages;
             processedIds.add(new _SortableId(bookId, fractionDone.ceil()));
             break;
         }
@@ -128,7 +128,7 @@ class _BookFilter {
     final read = progress?.pagesRead ?? 0;
     return read == 0
         ? ReadingStatus.UNTOUCHED
-        : read < book.numbedOfPages
+        : read < book.numberOfPages
             ? ReadingStatus.READING
             : ReadingStatus.FINISHED;
   }
