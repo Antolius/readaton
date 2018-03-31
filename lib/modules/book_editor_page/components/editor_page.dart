@@ -99,12 +99,14 @@ class EditorPageState extends State<EditorPage> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: new ListView(
               children: <Widget>[
-                new TextFormField(),
-                new TextFormField(),
                 new Row(
                   children: <Widget>[
-                    const Text('Authors'),
+                    new Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: const Text('Author'),
+                    ),
                     new DropdownButton<String>(
+                      value: _authors[0],
                       items: widget.model.authors
                           .map((id, auth) => new MapEntry(
                               id,
@@ -121,7 +123,7 @@ class EditorPageState extends State<EditorPage> {
                           .values
                           .toList(growable: false),
                       onChanged: (val) => setState(() {
-                            _authors.add(val);
+                            _authors[0] = val;
                           }),
                     ),
                   ],

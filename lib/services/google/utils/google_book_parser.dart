@@ -31,12 +31,13 @@ class GoogleBookParser {
 
   String _findAuthorByName(
       Map<String, Author> existingAuthors, String authorName) {
+    String existingAuthorId;
     existingAuthors.forEach((key, auth) {
       if (auth.name == authorName) {
-        return key;
+        existingAuthorId = key;
       }
     });
-    return null;
+    return existingAuthorId;
   }
 
   Book _parseBook(List<String> authorIds) => new Book(

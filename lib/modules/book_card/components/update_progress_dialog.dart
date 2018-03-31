@@ -1,33 +1,33 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class UpdateProgressDialog extends StatelessWidget {
+class UpdateProgressDialog extends StatefulWidget {
   final int numberOfPages;
   final int numberOfReadPages;
-  final GlobalKey<FormFieldState> _pageInputKey =
-      new GlobalKey<FormFieldState>();
 
   UpdateProgressDialog({
     @required this.numberOfPages,
     @required this.numberOfReadPages,
   });
 
-  _onApply(BuildContext context) {
-    final state = _pageInputKey.currentState;
-    if (state.validate()) {
-      Navigator.pop(context, int.parse(state.value) - numberOfReadPages);
-    }
+  @override
+  UpdateProgressDialogState createState() {
+    return new UpdateProgressDialogState();
+  }
+}
+
+class UpdateProgressDialogState extends State<UpdateProgressDialog> {
+  int value;
+
+  @override
+  void initState() {
+    super.initState();
+    value = widget.numberOfReadPages;
   }
 
-  String _validatePageReachedInput(String val) {
-    if (val == null) return 'Page is requred';
-    final page = int.parse(val, onError: (_) => -1);
-    if (page <= 0) return 'Page must be a positive number';
-    if (page > numberOfPages) return 'Book only has $numberOfPages pages';
-    if (page < numberOfReadPages)
-      return 'You already reached page $numberOfReadPages';
-    return null;
-  }
+  int get _percentRead => (value / widget.numberOfPages * 100).ceil();
+
+  int get _numberOfNewlyReadPages => value - widget.numberOfReadPages;
 
   @override
   Widget build(BuildContext context) => new Dialog(
@@ -47,16 +47,20 @@ class UpdateProgressDialog extends StatelessWidget {
                       style: Theme.of(context).textTheme.title,
                     ),
                   ),
-                  new TextFormField(
-                    key: _pageInputKey,
-                    initialValue: numberOfReadPages.toString(),
-                    keyboardType: TextInputType.number,
-                    autofocus: true,
-                    decoration: const InputDecoration(
-                        labelText: 'Page reached',
-                        hintText: 'Page you are currently on'),
-                    validator: _validatePageReachedInput,
+                  new Slider(
+                    value: value.toDouble(),
+                    onChanged: (newValue) => setState(() {
+                          value = newValue.ceil();
+                        }),
+                    min: widget.numberOfReadPages.toDouble(),
+                    max: widget.numberOfPages.toDouble(),
+                    label: '$value',
                   ),
+                  new Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: new Text('Read $_percentRead%, or $value out of ${widget
+                        .numberOfPages} pages'),
+                  )
                 ],
               ),
             ),
@@ -69,7 +73,8 @@ class UpdateProgressDialog extends StatelessWidget {
                     child: new Text('CANCEL'),
                   ),
                   new FlatButton(
-                    onPressed: () => _onApply(context),
+                    onPressed: () =>
+                        Navigator.pop(context, _numberOfNewlyReadPages),
                     child: new Text('APPLY'),
                   ),
                 ],
