@@ -19,9 +19,10 @@ final _mockBooksOnBoot =
   next(action);
 
   var googleResponse = await searchFor('Red Mars');
+  var googleBooks = googleResponse['items'].take(3);
   Map<String, Book> books = {};
   Map<String, Author> authors = {};
-  for (Map<String, dynamic> googleBook in googleResponse['items']) {
+  for (Map<String, dynamic> googleBook in googleBooks) {
     final pageCount = googleBook['volumeInfo']['pageCount'];
     if (pageCount != null && pageCount > 0) {
       new GoogleBookParser(googleBook).populate(books, authors);
@@ -30,7 +31,7 @@ final _mockBooksOnBoot =
   store.dispatch(new MockAction(
     mockBooks: books,
     mockAuthors: authors,
-    mockProgressions: _mockProgressionsFor(books),
+//    mockProgressions: _mockProgressionsFor(books),
   ));
 });
 

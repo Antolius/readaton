@@ -15,7 +15,7 @@ class BookEditorViewModel {
         addedAuthorId = _store.state.bookEditorPage.addedAuthorId;
 
   void onSaveBook(Book newBook) {
-    if (_bookId != null) {
+    if (_bookId == null) {
       _store.dispatch(new AddNewBookAction(newBook));
     } else {
       _store.dispatch(new UpdateExistingBookAction(_bookId, newBook));

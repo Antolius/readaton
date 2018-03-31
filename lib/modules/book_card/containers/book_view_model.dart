@@ -9,7 +9,7 @@ class BookViewModel {
   final String title;
   final String subtitle;
   final List<String> authorNames;
-  final String coverImageUrl;
+  final ImageData coverImage;
   final int numberOfPages;
   final int numberOfReadPages;
   final Optional<DateTime> lastReadOn;
@@ -18,7 +18,7 @@ class BookViewModel {
       : id = bookId,
         title = _book(_store, bookId).title,
         subtitle = _book(_store, bookId).subtitle,
-        coverImageUrl = _book(_store, bookId).coverImageUrl,
+        coverImage = _book(_store, bookId).coverImage,
         authorNames = _book(_store, bookId)
             .authors
             .map((authorId) => _author(_store, authorId)?.name)

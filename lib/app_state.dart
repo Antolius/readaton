@@ -93,27 +93,78 @@ class Book {
   final String subtitle;
   final String synopsis;
   final int numberOfPages;
-  final String coverImageUrl;
+  final ImageData coverImage;
   final List<String> authors;
 
-  const Book({
+  Book({
     @required this.title,
     this.subtitle = '',
     this.synopsis = '',
+    final String coverImageUrl,
     @required this.numberOfPages,
-    @required this.coverImageUrl,
     @required this.authors,
-  });
+  })
+      : assert(title != null),
+        assert(subtitle != null),
+        assert(synopsis != null),
+        assert(numberOfPages != null),
+        assert(authors != null),
+        this.coverImage = coverImageUrl != null && coverImageUrl.isNotEmpty
+            ? new UrlImageData(imageUrl: coverImageUrl)
+            : const LocalImageData(
+                imageName: 'assets/images/book_cover_placeholder.jpg',
+              );
 }
 
 class Author {
   final String name;
+  final ImageData profileImage;
+
+  Author({
+    String profileImageUrl,
+    @required this.name,
+  })
+      : assert(name != null),
+        this.profileImage =
+            profileImageUrl != null && profileImageUrl.isNotEmpty
+                ? new UrlImageData(imageUrl: profileImageUrl)
+                : const LocalImageData(
+                    imageName: 'assets/images/avatar_placeholder.png',
+                  );
+}
+
+abstract class ImageData {
+  const ImageData();
+
+  T accept<T>(ImageDataVisitor<T> visitor);
+}
+
+abstract class ImageDataVisitor<T> {
+  T visitUrlImage(UrlImageData urlImage);
+
+  T visitLocalImage(LocalImageData localImage);
+}
+
+class UrlImageData extends ImageData {
   final String imageUrl;
 
-  const Author({
-    @required this.name,
-    this.imageUrl = '',
+  const UrlImageData({
+    @required this.imageUrl,
   });
+
+  @override
+  T accept<T>(ImageDataVisitor<T> visitor) => visitor.visitUrlImage(this);
+}
+
+class LocalImageData extends ImageData {
+  final String imageName;
+
+  const LocalImageData({
+    @required this.imageName,
+  });
+
+  @override
+  T accept<T>(ImageDataVisitor<T> visitor) => visitor.visitLocalImage(this);
 }
 
 class ReadingProgression {
