@@ -9,6 +9,7 @@ class AppState {
   final Map<String, ReadingProgression> progressions;
   final BooksListPageState booksListPage;
   final BookEditorPageState bookEditorPage;
+  final StatsDashboardPageState statsDashboardPage;
 
   AppState({
     this.currentSection,
@@ -18,6 +19,7 @@ class AppState {
     this.progressions,
     this.booksListPage,
     this.bookEditorPage,
+    this.statsDashboardPage,
   });
 
   const AppState.init()
@@ -27,7 +29,8 @@ class AppState {
         authors = const {},
         progressions = const {},
         booksListPage = const BooksListPageState(),
-        bookEditorPage = const BookEditorPageState();
+        bookEditorPage = const BookEditorPageState(),
+        statsDashboardPage = const StatsDashboardPageState();
 
   AppState copyWith({
     AppSection currentSection,
@@ -37,6 +40,7 @@ class AppState {
     Map<String, ReadingProgression> progressions,
     BooksListPageState booksListPage,
     BookEditorPageState bookEditorPage,
+    StatsDashboardPageState statsDashboardPage,
   }) =>
       new AppState(
         currentSection: currentSection ?? this.currentSection,
@@ -46,6 +50,7 @@ class AppState {
         progressions: progressions ?? this.progressions,
         booksListPage: booksListPage ?? this.booksListPage,
         bookEditorPage: bookEditorPage ?? this.bookEditorPage,
+        statsDashboardPage: statsDashboardPage ?? this.statsDashboardPage,
       );
 }
 
@@ -60,6 +65,7 @@ class BookEditorPageState {
 }
 
 enum ReadingStatus { UNTOUCHED, READING, FINISHED }
+
 enum BooksSortParam { LAST_READ, FRACTION_DONE }
 enum SortDirection { ASC, DESC }
 
@@ -83,6 +89,23 @@ class BooksListPageState {
         statusFilter: statusFilter ?? this.statusFilter,
         sortBy: sortBy ?? this.sortBy,
         sortDirection: sortDirection ?? this.sortDirection,
+      );
+}
+
+enum DataAggregation { CUMULATIVE, INDIVIDUAL }
+
+class StatsDashboardPageState {
+  final DataAggregation pagesReadAggregation;
+
+  const StatsDashboardPageState({
+    this.pagesReadAggregation = DataAggregation.INDIVIDUAL,
+  });
+
+  StatsDashboardPageState copyWith({
+    DataAggregation pagesReadAggregation,
+  }) =>
+      new StatsDashboardPageState(
+        pagesReadAggregation: pagesReadAggregation ?? this.pagesReadAggregation,
       );
 }
 

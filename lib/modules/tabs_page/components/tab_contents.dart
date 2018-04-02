@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:readaton/app_state.dart';
 import 'package:readaton/modules/books_list/books_list.dart';
+import 'package:readaton/modules/stats_dashboard/stats_dashboard.dart';
 
 class TabContents extends StatelessWidget {
   final AppSection currentSection;
@@ -14,17 +15,13 @@ class TabContents extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (currentSection) {
       case AppSection.BOOKS:
-        return new Container(
-          child: new BooksList(),
-        );
+        return new BooksList();
       case AppSection.GOALS:
         return new Container(
           child: new Text(currentSection.toString()),
         );
       case AppSection.STATS:
-        return new Container(
-          child: new Text(currentSection.toString()),
-        );
+        return new StatsDashboard();
     }
     throw new ArgumentError.value(
       currentSection,

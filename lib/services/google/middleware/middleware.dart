@@ -19,10 +19,9 @@ final _mockBooksOnBoot =
   next(action);
 
   var googleResponse = await searchFor('Red Mars');
-  var googleBooks = googleResponse['items'].take(3);
   Map<String, Book> books = {};
   Map<String, Author> authors = {};
-  for (Map<String, dynamic> googleBook in googleBooks) {
+  for (Map<String, dynamic> googleBook in googleResponse['items']) {
     final pageCount = googleBook['volumeInfo']['pageCount'];
     if (pageCount != null && pageCount > 0) {
       new GoogleBookParser(googleBook).populate(books, authors);
@@ -31,7 +30,7 @@ final _mockBooksOnBoot =
   store.dispatch(new MockAction(
     mockBooks: books,
     mockAuthors: authors,
-//    mockProgressions: _mockProgressionsFor(books),
+    mockProgressions: _mockProgressionsFor(books),
   ));
 });
 
@@ -42,42 +41,49 @@ final _completeBootOnMocksCompletion =
 });
 
 Map<String, ReadingProgression> _mockProgressionsFor(Map<String, Book> books) {
+  Map<String, ReadingProgression> bookToProgress = {};
   final now = new DateTime.now();
   final random = new Random();
-  final _rnd10 = () => random.nextInt(10);
-  final _rndDateTime = () => now.subtract(new Duration(
-        days: _rnd10(),
-        hours: _rnd10(),
-        minutes: _rnd10(),
-      ));
-  final _rndUpdate = (Book book) => new ReadingUpdate(
-        madeOn: _rndDateTime(),
-        pagesRead: random.nextInt((book.numberOfPages / 3).ceil()),
-      );
+  var currentlyReadingBooks = books.keys.toList();
 
-  Map<String, ReadingProgression> progression = {};
-  //mock in progress books:
-  for (String id in books.keys.skip(3).take(3)) {
-    final book = books[id];
-    progression.putIfAbsent(id, () {
-      return new ReadingProgression(
-        updates: [_rndUpdate(book), _rndUpdate(book)],
+  for (int d = 365; d > 0; d--) {
+    var readAt = now.subtract(new Duration(days: d, hours: random.nextInt(12)));
+    var pagesRead = random.nextInt(50) + 1;
+    var bookIndex = min(random.nextInt(3), currentlyReadingBooks.length - 1);
+    var bookId = currentlyReadingBooks[bookIndex];
+
+    if (bookToProgress.containsKey(bookId)) {
+      var existingProgress = bookToProgress[bookId];
+      pagesRead = min(
+        pagesRead,
+        books[bookId].numberOfPages - existingProgress.pagesRead,
       );
-    });
-  }
-  //mock read books:
-  for (String id in books.keys.skip(6)) {
-    final book = books[id];
-    progression.putIfAbsent(id, () {
-      return new ReadingProgression(
+      bookToProgress[bookId] = new ReadingProgression(
+        updates: []
+          ..addAll(existingProgress.updates)
+          ..add(new ReadingUpdate(
+            madeOn: readAt,
+            pagesRead: pagesRead,
+          )),
+      );
+    } else {
+      pagesRead = min(pagesRead, books[bookId].numberOfPages);
+      bookToProgress[bookId] = new ReadingProgression(
         updates: [
           new ReadingUpdate(
-            madeOn: _rndDateTime().subtract(new Duration(days: 20)),
-            pagesRead: book.numberOfPages,
+            madeOn: readAt,
+            pagesRead: pagesRead,
           )
         ],
       );
-    });
+    }
+    if (bookToProgress[bookId].pagesRead == books[bookId].numberOfPages) {
+      currentlyReadingBooks.remove(bookId);
+      if (currentlyReadingBooks.isEmpty) {
+        return bookToProgress;
+      }
+    }
   }
-  return progression;
+
+  return bookToProgress;
 }
