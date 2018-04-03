@@ -70,9 +70,9 @@ class ReadingSpeedStatsCard extends StatelessWidget {
             ),
             new TabBar(
               tabs: [
-                new Tab(text: 'YEAR'),
-                new Tab(text: 'MONTH'),
-                new Tab(text: 'WEEK'),
+                new Tab(text: 'YEARLY'),
+                new Tab(text: 'MONTHLY'),
+                new Tab(text: 'WEEKLY'),
               ],
             ),
           ],
