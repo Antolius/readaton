@@ -118,6 +118,7 @@ class Book {
   final int numberOfPages;
   final ImageData coverImage;
   final List<String> authors;
+  final String language;
 
   Book({
     @required this.title,
@@ -126,6 +127,7 @@ class Book {
     final String coverImageUrl,
     @required this.numberOfPages,
     @required this.authors,
+    this.language = 'unknown',
   })
       : assert(title != null),
         assert(subtitle != null),

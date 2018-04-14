@@ -53,6 +53,7 @@ class GoogleBookParser {
         authors: authorIds,
         subtitle: googleBook.pluck('volumeInfo.subtitle', ''),
         synopsis: googleBook.pluck('volumeInfo.description', ''),
+        language: googleBook.pluck('volumeInfo.language'),
       );
 }
 

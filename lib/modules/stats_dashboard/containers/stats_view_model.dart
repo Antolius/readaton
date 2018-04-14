@@ -58,15 +58,26 @@ class StatsViewModel {
 
     _booksFinishedData = booksData.values.toList(growable: false)..sort();
     _pagesReadData = pagesData.values.toList(growable: false)..sort();
-    _readAuthors = authorsData.values.toList(growable: false);
+    var allAuthors = authorsData.values.toList(growable: false)..sort();
+    var topAuthorsNumber = 4;
+    _readAuthors = allAuthors.take(topAuthorsNumber).toList();
+    if (allAuthors.length > topAuthorsNumber) {
+      _readAuthors.add(new SeriesAuthor(
+        'Others',
+        allAuthors.skip(topAuthorsNumber).fold(0, (sum, next) => sum + next.booksRead),
+      ));
+    }
   }
 }
 
-class SeriesAuthor {
+class SeriesAuthor implements Comparable<SeriesAuthor> {
   String authorName;
   int booksRead;
 
   SeriesAuthor(this.authorName, this.booksRead);
+
+  @override
+  int compareTo(SeriesAuthor other) => other.booksRead - booksRead;
 }
 
 class TimeSeriesPagesRead implements Comparable<TimeSeriesPagesRead> {

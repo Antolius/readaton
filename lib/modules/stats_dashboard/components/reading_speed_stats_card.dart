@@ -58,11 +58,12 @@ class ReadingSpeedStatsCard extends StatelessWidget {
   Widget _buildTabs(BuildContext context) => new Container(
         color: Theme.of(context).primaryColor,
         child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 16.0, left: 16.0),
               child: new Text(
-                'Reading speed',
+                'Pages read',
                 style: Theme.of(context).textTheme.title.copyWith(
                       color: Theme.of(context).dialogBackgroundColor,
                     ),
@@ -70,9 +71,9 @@ class ReadingSpeedStatsCard extends StatelessWidget {
             ),
             new TabBar(
               tabs: [
-                new Tab(text: 'YEARLY'),
-                new Tab(text: 'MONTHLY'),
-                new Tab(text: 'WEEKLY'),
+                new Tab(text: 'LAST YEAR'),
+                new Tab(text: 'LAST MONTH'),
+                new Tab(text: 'LAST WEEK'),
               ],
             ),
           ],
