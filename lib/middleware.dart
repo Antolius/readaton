@@ -1,4 +1,4 @@
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/app_state.dart';
 import 'package:readaton/modules/boot_page/boot_page.dart';
 import 'package:redux/redux.dart';
 

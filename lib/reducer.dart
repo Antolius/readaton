@@ -1,4 +1,4 @@
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/app_state.dart';
 import 'package:redux/redux.dart';
 
 import 'modules/book_card/book_card.dart' as bookCard;

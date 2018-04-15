@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:oauth1/oauth1.dart' as oauth1;
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/services/goodreads/utils/api_key_provider.dart';
 import 'package:readaton/services/goodreads/utils/oauth_callback_server.dart';
 

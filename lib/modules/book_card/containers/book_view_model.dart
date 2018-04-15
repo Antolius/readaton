@@ -1,5 +1,5 @@
 import 'package:quiver/core.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/book_card/actions/actions.dart';
 import 'package:redux/redux.dart';
 

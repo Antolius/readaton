@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/books_list/actions/actions.dart';
 import 'package:redux/redux.dart';
 

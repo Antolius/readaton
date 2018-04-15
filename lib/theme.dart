@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/app_state.dart';
 
 class ReadathonTheme {
   static const Map<AppSection, Color> COLORS = const {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/books_import/components/import_progress_dialog.dart';
 import 'package:readaton/modules/books_import/components/sign_in_prompt_dialog.dart';
 import 'package:readaton/services/goodreads/goodreads.dart';

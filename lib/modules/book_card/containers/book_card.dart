@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/book_card/components/finished_book_card.dart';
 import 'package:readaton/modules/book_card/components/reading_book_card.dart';
 import 'package:readaton/modules/book_card/components/untouched_book_card.dart';

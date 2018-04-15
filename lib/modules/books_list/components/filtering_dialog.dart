@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 
 class FilteringDialog extends StatelessWidget {
   @override

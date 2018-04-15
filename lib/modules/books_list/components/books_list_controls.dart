@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/books_list/components/filtering_dialog.dart';
 import 'package:readaton/modules/books_list/components/sorting_dialog.dart';
 

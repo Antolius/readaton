@@ -1,4 +1,4 @@
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/services/google/actions/actions.dart';
 import 'package:redux/redux.dart';
 

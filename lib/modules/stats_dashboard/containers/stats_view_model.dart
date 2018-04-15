@@ -1,4 +1,4 @@
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/stats_dashboard/actions/actions.dart';
 import 'package:redux/redux.dart';
 
@@ -8,7 +8,7 @@ class StatsViewModel {
   List<TimeSeriesBooksFinished> _booksFinishedData;
   List<SeriesAuthor> _readAuthors;
 
-  bool get hasReadingData => true;
+  bool get hasReadingData => _store.state.progressions.isNotEmpty;
 
   List<TimeSeriesPagesRead> get pagesReadData => _pagesReadData;
 

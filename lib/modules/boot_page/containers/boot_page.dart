@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/boot_page/boot_page.dart';
 import 'package:readaton/modules/boot_page/components/booting_page.dart';
 import 'package:redux/redux.dart';

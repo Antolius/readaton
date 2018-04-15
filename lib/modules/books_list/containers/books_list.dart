@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/books_list/components/empty_books_list.dart';
 import 'package:readaton/modules/books_list/components/full_books_list.dart';
 import 'package:readaton/modules/books_list/containers/books_list_view_model.dart';

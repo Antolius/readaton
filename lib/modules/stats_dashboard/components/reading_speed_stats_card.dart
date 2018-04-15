@@ -1,7 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/stats_dashboard/containers/stats_view_model.dart';
 import 'package:readaton/modules/stats_dashboard/utils/color_utils.dart';
 

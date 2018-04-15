@@ -1,4 +1,4 @@
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:uuid/uuid.dart';
 
 final _uuid = new Uuid();

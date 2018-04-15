@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/book_editor_page/containers/book_editor_view_model.dart';
 
 class EditorPage extends StatefulWidget {

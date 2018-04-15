@@ -1,4 +1,4 @@
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 
 class UpdateBooksListPageAction {
   final BooksListPageState newPage;

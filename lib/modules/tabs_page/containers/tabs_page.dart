@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/tabs_page/actions/actions.dart';
 import 'package:readaton/modules/tabs_page/components/add_to_section_button.dart';
 import 'package:readaton/modules/tabs_page/components/bottom_tabs.dart';

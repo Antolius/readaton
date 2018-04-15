@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:readaton/app_state.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/modules/boot_page/boot_page.dart';
 import 'package:readaton/services/google/actions/actions.dart';
 import 'package:readaton/services/google/utils/google_book_parser.dart';
