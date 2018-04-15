@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:readaton/modules/books_import/books_import.dart';
 
 class EmptyBooksList extends StatelessWidget {
   @override
@@ -20,15 +21,16 @@ class EmptyBooksList extends StatelessWidget {
               padding: new EdgeInsets.only(top: 48.0),
               child: new RaisedButton(
                 onPressed: () {
-                  //todo: implement!
+                    showDialog(context: context, child: new BooksImport());
+//                  Navigator.push(
+//                    context,
+//                    new MaterialPageRoute(
+//                      fullscreenDialog: false,
+//                      builder: (_) => new BooksImport(),
+//                    ),
+//                  );
                 },
-                child: new Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    new Icon(Icons.add_box),
-                    new Text("ADD A BOOK")
-                  ],
-                ),
+                child: new Text("IMPORT FROM GOODREADS"),
                 color: Theme.of(context).accentColor,
               ),
             ),

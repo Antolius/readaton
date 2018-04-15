@@ -8,9 +8,11 @@ import 'modules/boot_page/boot_page.dart' as bootPage;
 import 'modules/stats_dashboard/stats_dashboard.dart' as statsDashboardPage;
 import 'modules/tabs_page/tabs_page.dart' as tabsPage;
 import 'services/google/google.dart' as googleServices;
+import 'services/goodreads/goodreads.dart' as goodreadsServices;
 
 final _allReducers = []
   ..addAll(googleServices.reducers)
+  ..addAll(goodreadsServices.reducers)
   ..addAll(bookCard.reducers)
   ..addAll(booksListPage.reducers)
   ..addAll(bootPage.reducers)

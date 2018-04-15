@@ -8,7 +8,7 @@ import 'package:readaton/services/google/utils/search_google_books.dart';
 import 'package:redux/redux.dart';
 
 final middleware = <MiddlewareBinding<AppState, dynamic>>[
-  _mockBooksOnBoot,
+//  _mockBooksOnBoot,
   _completeBootOnMocksCompletion,
 ];
 

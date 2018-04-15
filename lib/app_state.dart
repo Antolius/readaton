@@ -10,6 +10,7 @@ class AppState {
   final BooksListPageState booksListPage;
   final BookEditorPageState bookEditorPage;
   final StatsDashboardPageState statsDashboardPage;
+  final UserState userState;
 
   AppState({
     this.currentSection,
@@ -20,6 +21,7 @@ class AppState {
     this.booksListPage,
     this.bookEditorPage,
     this.statsDashboardPage,
+    this.userState,
   });
 
   const AppState.init()
@@ -30,7 +32,8 @@ class AppState {
         progressions = const {},
         booksListPage = const BooksListPageState(),
         bookEditorPage = const BookEditorPageState(),
-        statsDashboardPage = const StatsDashboardPageState();
+        statsDashboardPage = const StatsDashboardPageState(),
+        userState = const UserState();
 
   AppState copyWith({
     AppSection currentSection,
@@ -41,6 +44,7 @@ class AppState {
     BooksListPageState booksListPage,
     BookEditorPageState bookEditorPage,
     StatsDashboardPageState statsDashboardPage,
+    UserState userState,
   }) =>
       new AppState(
         currentSection: currentSection ?? this.currentSection,
@@ -51,6 +55,7 @@ class AppState {
         booksListPage: booksListPage ?? this.booksListPage,
         bookEditorPage: bookEditorPage ?? this.bookEditorPage,
         statsDashboardPage: statsDashboardPage ?? this.statsDashboardPage,
+        userState: userState ?? this.userState,
       );
 }
 
@@ -216,5 +221,23 @@ class ReadingUpdate {
   const ReadingUpdate({
     @required this.madeOn,
     @required this.pagesRead,
+  });
+}
+
+class UserState {
+  final GoodreadsCredentials goodreadsCredentials;
+
+  const UserState({
+    this.goodreadsCredentials,
+  });
+}
+
+class GoodreadsCredentials {
+  final String token;
+  final String secret;
+
+  const GoodreadsCredentials({
+    @required this.token,
+    @required this.secret,
   });
 }

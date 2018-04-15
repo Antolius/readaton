@@ -116,6 +116,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_webview_plugin:
+    dependency: "direct main"
+    description:
+      name: flutter_webview_plugin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
+  formler:
+    dependency: transitive
+    description:
+      name: formler
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.8"
   front_end:
     dependency: transitive
     description:
@@ -242,6 +256,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  oauth1:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: eacb08f33750f4a006f0d93334e4866a2b7c526c
+      url: "git://github.com/Antolius/dart-oauth1.git"
+    source: git
+    version: "0.3.1"
   package_config:
     dependency: transitive
     description:
@@ -394,6 +417,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.5"
+  unittest:
+    dependency: transitive
+    description:
+      name: unittest
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.11.7"
   utf:
     dependency: transitive
     description:

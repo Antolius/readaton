@@ -12,6 +12,10 @@ dependencies:
   uuid: ^0.5.3
   yaml: ^2.1.13
   charts_flutter: ^0.0.1+1
+#  flutter_oauth: ^0.0.1
+  oauth1:
+    git: git://github.com/Antolius/dart-oauth1.git
+  flutter_webview_plugin: 0.1.5
 
 dev_dependencies:
   flutter_test:
