@@ -22,7 +22,7 @@ class BooksImportViewModel {
 
   BooksImportViewModel.from(this._store) : _userState = _store.state.userState;
 
-  bool get hasUser => _userState.goodreadsCredentials != null;
+  bool get hasUser => _userState.credentials[Platform.GOODREADS] != null;
 
   UserState get userState => _userState;
 

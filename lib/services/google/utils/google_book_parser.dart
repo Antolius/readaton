@@ -1,13 +1,14 @@
+import 'package:readaton/services/common/utils/wrapper.dart';
 import 'package:readaton/state/state.dart';
 import 'package:uuid/uuid.dart';
 
 final _uuid = new Uuid();
 
 class GoogleBookParser {
-  final _MapWrapper googleBook;
+  final Wrapper googleBook;
 
   GoogleBookParser(Map<String, dynamic> googleBook)
-      : googleBook = new _MapWrapper.wrap(googleBook);
+      : googleBook = new Wrapper.wrapMap(googleBook);
 
   void populate(Map<String, Book> books, Map<String, Author> authors) {
     List<String> authorIds = _parseAuthors(authors);
@@ -55,30 +56,4 @@ class GoogleBookParser {
         synopsis: googleBook.pluck('volumeInfo.description', ''),
         language: googleBook.pluck('volumeInfo.language'),
       );
-}
-
-class _MapWrapper {
-  final Map<String, dynamic> _source;
-
-  _MapWrapper.wrap(this._source);
-
-  T pluck<T>(String path, [T defaultValue]) {
-    var props = path.split('.');
-    var value = _source;
-    for (String prop in props) {
-      value = value[prop];
-      if (value == null) return defaultValue;
-    }
-    return value as T;
-  }
-
-  T pluckFirst<T>(List<String> paths, [T defaultValue]) {
-    for (String path in paths) {
-      var value = pluck(path);
-      if (value != null) {
-        return value;
-      }
-    }
-    return defaultValue;
-  }
 }

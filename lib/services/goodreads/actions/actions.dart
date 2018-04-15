@@ -4,8 +4,9 @@ class SignInWithGoodreadsAction {
   const SignInWithGoodreadsAction();
 }
 
-class AddGoodreadsUserCredentials {
-  final GoodreadsCredentials newCredentials;
+class AddGoodreadsUserAction {
+  final UserCredentials newCredentials;
+  final UserProfile newProfile;
 
-  const AddGoodreadsUserCredentials(this.newCredentials);
+  const AddGoodreadsUserAction(this.newCredentials, this.newProfile);
 }
