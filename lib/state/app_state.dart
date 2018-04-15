@@ -3,6 +3,7 @@ import 'package:readaton/state/domain/book.dart';
 import 'package:readaton/state/domain/reading_progression.dart';
 import 'package:readaton/state/domain/user.dart';
 import 'package:readaton/state/ui/book_editor.dart';
+import 'package:readaton/state/ui/books_import.dart';
 import 'package:readaton/state/ui/books_list.dart';
 import 'package:readaton/state/ui/stats_dashboard.dart';
 
@@ -16,6 +17,7 @@ class AppState {
   final BookEditorPageState bookEditorPage;
   final StatsDashboardPageState statsDashboardPage;
   final UserState userState;
+  final BooksImportPageState booksImportPageState;
 
   AppState({
     this.currentSection,
@@ -27,6 +29,7 @@ class AppState {
     this.bookEditorPage,
     this.statsDashboardPage,
     this.userState,
+    this.booksImportPageState,
   });
 
   const AppState.init()
@@ -38,7 +41,8 @@ class AppState {
         booksListPage = const BooksListPageState(),
         bookEditorPage = const BookEditorPageState(),
         statsDashboardPage = const StatsDashboardPageState(),
-        userState = const UserState();
+        userState = const UserState(),
+        booksImportPageState = const BooksImportPageState();
 
   AppState copyWith({
     AppSection currentSection,
@@ -50,6 +54,7 @@ class AppState {
     BookEditorPageState bookEditorPage,
     StatsDashboardPageState statsDashboardPage,
     UserState userState,
+    BooksImportPageState booksImportPageState,
   }) =>
       new AppState(
         currentSection: currentSection ?? this.currentSection,
@@ -61,6 +66,7 @@ class AppState {
         bookEditorPage: bookEditorPage ?? this.bookEditorPage,
         statsDashboardPage: statsDashboardPage ?? this.statsDashboardPage,
         userState: userState ?? this.userState,
+        booksImportPageState: booksImportPageState ?? this.booksImportPageState,
       );
 }
 

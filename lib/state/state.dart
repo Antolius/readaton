@@ -4,6 +4,7 @@ export 'package:readaton/state/domain/book.dart';
 export 'package:readaton/state/domain/reading_progression.dart';
 export 'package:readaton/state/domain/user.dart';
 export 'package:readaton/state/ui/book_editor.dart';
+export 'package:readaton/state/ui/books_import.dart';
 export 'package:readaton/state/ui/books_list.dart';
 export 'package:readaton/state/ui/stats_dashboard.dart';
 export 'package:readaton/state/utils/image_data.dart';

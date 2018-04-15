@@ -21,14 +21,13 @@ class EmptyBooksList extends StatelessWidget {
               padding: new EdgeInsets.only(top: 48.0),
               child: new RaisedButton(
                 onPressed: () {
-                    showDialog(context: context, child: new BooksImport());
-//                  Navigator.push(
-//                    context,
-//                    new MaterialPageRoute(
-//                      fullscreenDialog: false,
-//                      builder: (_) => new BooksImport(),
-//                    ),
-//                  );
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (_) => new BooksImportPage(),
+                    ),
+                  );
                 },
                 child: new Text("IMPORT FROM GOODREADS"),
                 color: Theme.of(context).accentColor,
