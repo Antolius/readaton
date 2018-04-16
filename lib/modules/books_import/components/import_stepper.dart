@@ -16,7 +16,7 @@ class ImportStepper extends StatelessWidget {
 
   int get _nextStep => _state.currentStep + 1;
 
-  bool get _canContinue => _state.availableSteps.contains(_nextStep);
+  bool get _canContinue => _nextStep < 3 && _state.accessibility[_nextStep];
 
   @override
   Widget build(BuildContext context) => new Scaffold(

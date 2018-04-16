@@ -3,7 +3,9 @@ import 'package:xml/xml.dart';
 abstract class Wrapper {
   factory Wrapper.wrapMap(Map<String, dynamic> map) => new _MapWrapper(map);
 
-  factory Wrapper.wrapXml(XmlDocument xml) => new _XmlWrapper(xml);
+  factory Wrapper.wrapXml(XmlDocument xml) => new _XmlWrapper(xml.rootElement);
+
+  factory Wrapper.wrapXmlElement(XmlElement xml) => new _XmlWrapper(xml);
 
   Wrapper._internal();
 
@@ -36,14 +38,14 @@ class _MapWrapper extends Wrapper {
 }
 
 class _XmlWrapper extends Wrapper {
-  final XmlDocument _source;
+  final XmlElement _source;
 
   _XmlWrapper(this._source) : super._internal();
 
   @override
   T pluck<T>(String path, [T defaultValue]) {
     var props = path.split('.');
-    var element = _source.rootElement;
+    var element = _source;
     for (String prop in props) {
       var attribute = element.getAttribute(prop);
       if (attribute != null && attribute.isNotEmpty) return attribute as T;

@@ -6,8 +6,6 @@ import 'package:readaton/services/goodreads/utils/goodreads_client.dart';
 import 'package:readaton/state/domain/user.dart';
 import 'package:xml/xml.dart' as xml;
 
-final String _goodreads = 'https://www.goodreads.com';
-
 Future<UserProfile> fetchUserProfile(
   GoodreadsApiKey apiKey,
   UserCredentials credentials,
@@ -29,13 +27,13 @@ Future<UserProfile> fetchUserProfile(
 }
 
 Future<String> _fetchGoodreadsUserId(client) async {
-  var response = await client.read('$_goodreads/api/auth_user');
+  var response = await client.read('${client.url}/api/auth_user');
   var wrapper = new Wrapper.wrapXml(xml.parse(response));
   return wrapper.pluck<String>('user.id');
 }
 
 Future<Map<String, String>> _fetchNameAndPicture(client, platformId) async {
-  var response = await client.read('$_goodreads/user/show/$platformId.xml');
+  var response = await client.read('${client.url}/user/show/$platformId.xml');
   var wrapper = new Wrapper.wrapXml(xml.parse(response));
   var name = wrapper.pluckFirst<String>(
     ['user.user_name', 'user.name'],

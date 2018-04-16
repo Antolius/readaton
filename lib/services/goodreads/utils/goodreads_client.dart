@@ -18,4 +18,6 @@ class GoodreadsClient extends oauth1.Client {
             credentials.secret,
           ),
         );
+
+  String get url => 'https://www.goodreads.com';
 }

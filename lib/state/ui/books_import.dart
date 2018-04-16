@@ -1,30 +1,52 @@
+import 'package:flutter/foundation.dart';
+
 class BooksImportPageState {
   final int currentStep;
-  final List<int> availableSteps;
-  final List<int> completedSteps;
-  final Map<String, String> shelves;
-  final List<String> pickedShelves;
+  final List<ImportStepState> stepStates;
+  final List<bool> accessibility;
+  final List<GoodreadsShelf> shelves;
+  final List<int> shelvesToImport;
 
   const BooksImportPageState({
     this.currentStep = 0,
-    this.availableSteps = const [0],
-    this.completedSteps = const [],
-    this.shelves = const {},
-    this.pickedShelves = const [],
+    this.stepStates = const [
+      ImportStepState.INCOMPLETE,
+      ImportStepState.INCOMPLETE,
+      ImportStepState.INCOMPLETE,
+    ],
+    this.accessibility = const [true, false, false],
+    this.shelves = const [],
+    this.shelvesToImport = const [],
   });
 
   BooksImportPageState copyWith({
     int currentStep,
-    List<int> availableSteps,
-    List<int> completedSteps,
-    Map<String, String> shelves,
-    List<String> pickedShelves,
+    List<ImportStepState> currentStates,
+    List<bool> accessibility,
+    List<GoodreadsShelf> shelves,
+    List<int> shelvesToImport,
   }) =>
       new BooksImportPageState(
         currentStep: currentStep ?? this.currentStep,
-        availableSteps: availableSteps ?? this.availableSteps,
-        completedSteps: completedSteps ?? this.completedSteps,
+        stepStates: currentStates ?? this.stepStates,
+        accessibility: accessibility ?? this.accessibility,
         shelves: shelves ?? this.shelves,
-        pickedShelves: pickedShelves ?? this.pickedShelves,
+        shelvesToImport: shelvesToImport ?? this.shelvesToImport,
       );
+}
+
+enum ImportStepState { INCOMPLETE, LOADING, COMPLETE, ERROR }
+
+class GoodreadsShelf {
+  final String name;
+  final int platformId;
+  final int numberOfBooks;
+  final bool pickedForImport;
+
+  const GoodreadsShelf({
+    @required this.name,
+    @required this.platformId,
+    @required this.numberOfBooks,
+    this.pickedForImport = false,
+  });
 }

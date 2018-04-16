@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:readaton/modules/books_import/actions/actions.dart';
 import 'package:readaton/modules/books_import/components/import_stepper.dart';
 import 'package:readaton/services/goodreads/goodreads.dart';
 import 'package:readaton/state/state.dart';
@@ -31,16 +32,26 @@ class BooksImportViewModel {
   BooksImportPageState get pageState => _pageState;
 
   void onSignIn() {
-    _store.dispatch(new SignInWithGoodreadsAction());
+    _store.dispatch(const SignInWithGoodreadsAction());
   }
 
-  void onSignOut() {}
+  void onSignOut() {
+    _store.dispatch(const SignOutFromGoodreadsAction());
+  }
 
-  void onPickStep(int pickedStep) {}
+  void onPickStep(int pickedStep) {
+    assert(_pageState.accessibility[pickedStep],
+        'Step $pickedStep is not accessible!');
+    _store.dispatch(new PickImportBooksStepAction(pickedStep));
+  }
 
-  void onSelectShelf(String shelfId) {}
+  void onSelectShelf(int shelfId) {
+    _store.dispatch(new SelectShelfForImportAction(shelfId));
+  }
 
-  void onDeselectShelf(String shelfId) {}
+  void onDeselectShelf(int shelfId) {
+    _store.dispatch(new DeselectShelfForImportAction(shelfId));
+  }
 
   void onCancelImport() {}
 }

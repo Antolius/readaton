@@ -10,3 +10,7 @@ class AddGoodreadsUserAction {
 
   const AddGoodreadsUserAction(this.newCredentials, this.newProfile);
 }
+
+class SignOutFromGoodreadsAction {
+  const SignOutFromGoodreadsAction();
+}
