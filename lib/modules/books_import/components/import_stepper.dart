@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:readaton/modules/books_import/components/import_books_step.dart'
+    as ImportBooksStep;
 import 'package:readaton/modules/books_import/components/select_shelves_step.dart'
-as SelectShelvesStep;
+    as SelectShelvesStep;
 import 'package:readaton/modules/books_import/components/sign_in_step.dart'
     as SignInStep;
 import 'package:readaton/modules/books_import/containers/books_import_page.dart';
@@ -18,7 +20,9 @@ class ImportStepper extends StatelessWidget {
 
   int get _nextStep => _state.currentStep + 1;
 
-  bool get _canContinue => _nextStep < 3 && _state.accessibility[_nextStep];
+  bool get _canContinue =>
+      _nextStep < 3 && _state.accessibility[_nextStep] ||
+      _state.stepStates[2] == ImportStepState.COMPLETE;
 
   @override
   Widget build(BuildContext context) => new Scaffold(
@@ -28,16 +32,13 @@ class ImportStepper extends StatelessWidget {
         body: new Stepper(
           type: _determineType(context),
           currentStep: _state.currentStep,
-          onStepCancel: () => _onCancelImport(context),
-          onStepContinue:
-              _canContinue ? () => model.onPickStep(_nextStep) : null,
+          onStepCancel: () => _isLoading() ? null : _onCancelImport(context),
+          onStepContinue: _canContinue ? () => _onStepContinue(context) : null,
+          onStepTapped: model.onPickStep,
           steps: <Step>[
             SignInStep.build(context, model),
             SelectShelvesStep.build(context, model),
-            new Step(
-              title: const Text('Importing...'),
-              content: const Placeholder(),
-            ),
+            ImportBooksStep.build(context, model),
           ],
         ),
       );
@@ -51,4 +52,14 @@ class ImportStepper extends StatelessWidget {
     Navigator.pop(context);
     model.onCancelImport();
   }
+
+  void _onStepContinue(BuildContext context) {
+    if (_nextStep == 3) {
+      Navigator.pop(context);
+    } else {
+      model.onPickStep(_nextStep);
+    }
+  }
+
+  _isLoading() => _state.stepStates.contains(ImportStepState.LOADING);
 }

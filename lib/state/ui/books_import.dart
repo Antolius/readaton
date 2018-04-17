@@ -6,6 +6,8 @@ class BooksImportPageState {
   final List<bool> accessibility;
   final List<GoodreadsShelf> shelves;
   final List<int> shelvesToImport;
+  final int importedBooksCount;
+  final List<String> importedShelves;
 
   const BooksImportPageState({
     this.currentStep = 0,
@@ -17,21 +19,27 @@ class BooksImportPageState {
     this.accessibility = const [true, false, false],
     this.shelves = const [],
     this.shelvesToImport = const [],
+    this.importedBooksCount = 0,
+    this.importedShelves = const [],
   });
 
   BooksImportPageState copyWith({
     int currentStep,
-    List<ImportStepState> currentStates,
+    List<ImportStepState> stepStates,
     List<bool> accessibility,
     List<GoodreadsShelf> shelves,
     List<int> shelvesToImport,
+    int importedBooksCount,
+    List<String> importedShelves,
   }) =>
       new BooksImportPageState(
         currentStep: currentStep ?? this.currentStep,
-        stepStates: currentStates ?? this.stepStates,
+        stepStates: stepStates ?? this.stepStates,
         accessibility: accessibility ?? this.accessibility,
         shelves: shelves ?? this.shelves,
         shelvesToImport: shelvesToImport ?? this.shelvesToImport,
+        importedBooksCount: importedBooksCount ?? this.importedBooksCount,
+        importedShelves: importedShelves ?? this.importedShelves,
       );
 }
 

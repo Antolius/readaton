@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/state/utils/image_data.dart';
-
-enum Platform { GOODREADS }
 
 class UserState {
   final Map<Platform, UserCredentials> credentials;

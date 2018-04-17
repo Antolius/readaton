@@ -30,7 +30,7 @@ class BookListTile extends StatelessWidget {
 
   String _extractLastReadOn(BookViewModel book) => book.lastReadOn
       .transform((d) => 'on ${d.day}. ${d.month}. ${d.year}.')
-      .or('newer');
+      .or('never');
 }
 
 class _ImageBuilder extends ImageDataVisitor<Widget> {

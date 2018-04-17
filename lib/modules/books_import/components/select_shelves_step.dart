@@ -11,6 +11,7 @@ Step build(BuildContext context, BooksImportViewModel model) => new Step(
 
 _mapState(BooksImportPageState state) {
   if (state.currentStep == 1) return StepState.editing;
+  if (!state.accessibility[1]) return StepState.disabled;
 
   switch (state.stepStates[1]) {
     case ImportStepState.COMPLETE:

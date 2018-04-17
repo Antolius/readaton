@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:readaton/modules/books_import/actions/actions.dart';
+import 'package:readaton/modules/books_import/utils/book_loader.dart' as loader;
+import 'package:readaton/modules/books_import/utils/pager.dart' as pager;
 import 'package:readaton/services/common/utils/wrapper.dart';
 import 'package:readaton/services/goodreads/goodreads.dart';
 import 'package:readaton/services/goodreads/utils/api_key_provider.dart';
@@ -26,12 +28,24 @@ final middleware = <MiddlewareBinding<AppState, dynamic>>[
     var shelves = await _fetchShelves(client, userId);
     store.dispatch(new AddGoodreadsShelvesAction(shelves));
   }),
+  new MiddlewareBinding<AppState, FetchBooksPageAction>(
+      (store, action, next) async {
+    next(action);
+
+    var client = await _getClientFor(store.state.userState);
+    var importAction = await _loadBooks(client, store.state, action);
+    store.dispatch(importAction);
+  }),
+  new MiddlewareBinding<AppState, ImportBooksAction>(
+      (store, action, next) async {
+    next(action);
+    store.dispatch(_prepareNextAction(store, action));
+  }),
 ];
 
 Future<GoodreadsClient> _getClientFor(UserState userState) async {
   var apiKey = await getApiKey();
   var credentials = userState.credentials[Platform.GOODREADS];
-  var userId = userState.profiles[Platform.GOODREADS].platformId;
   return new GoodreadsClient(apiKey, credentials);
 }
 
@@ -49,4 +63,58 @@ Future<List<GoodreadsShelf>> _fetchShelves(
             numberOfBooks: int.parse(xmlEl.pluck('book_count')),
           ))
       .toList(growable: false);
+}
+
+Future<ImportBooksAction> _loadBooks(
+  GoodreadsClient client,
+  AppState state,
+  FetchBooksPageAction action,
+) async {
+  var newAuthors = {};
+  var newBooks = {};
+
+  var userId = state.userState.profiles[Platform.GOODREADS].platformId;
+  var bookXmls = await _fetchBooks(client, userId, action);
+  for (var bookXml in bookXmls) {
+    loader.loadBookIfNew(bookXml, state, newAuthors, newBooks);
+  }
+
+  return new ImportBooksAction(
+    newBooks: newBooks,
+    newAuthors: newAuthors,
+    fetchedPage: action,
+  );
+}
+
+Future<Iterable<XmlElement>> _fetchBooks(
+  GoodreadsClient client,
+  String userId,
+  FetchBooksPageAction action,
+) async {
+  var response = await client.read('${client.url}/review/list.xml?v=2'
+      '&id=$userId'
+      '&shelf=${action.shelf}'
+      '&sort=date_read'
+      '&order=d'
+      '&per_page=${action.pageSize}'
+      '&page=${action.page}');
+  var bookXmls = parse(response).findAllElements('book');
+  return bookXmls;
+}
+
+dynamic _prepareNextAction(
+  Store<AppState> store,
+  ImportBooksAction action,
+) {
+  if (pager.importCompleted(store)) {
+    return const CompleteImportAction();
+  }
+  if (pager.shelfCompleted(store, action)) {
+    String nextShelf = pager.pickNextShelf(store);
+    return new FetchBooksPageAction(shelf: nextShelf);
+  }
+  return new FetchBooksPageAction(
+    shelf: action.fetchedPage.shelf,
+    page: action.fetchedPage.page + 1,
+  );
 }

@@ -23,7 +23,7 @@ class BooksImportViewModel {
 
   BooksImportViewModel.from(this._store)
       : _userState = _store.state.userState,
-        _pageState = _store.state.booksImportPageState;
+        _pageState = _store.state.booksImportPage;
 
   bool get hasUser => _userState.credentials[Platform.GOODREADS] != null;
 
@@ -51,6 +51,13 @@ class BooksImportViewModel {
 
   void onDeselectShelf(int shelfId) {
     _store.dispatch(new DeselectShelfForImportAction(shelfId));
+  }
+
+  void onStartImport() {
+    var shelf = pageState.shelves.firstWhere(
+      (shelf) => pageState.shelvesToImport.contains(shelf.platformId),
+    );
+    _store.dispatch(new FetchBooksPageAction(shelf: shelf.name));
   }
 
   void onCancelImport() {}

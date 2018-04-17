@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:readaton/state/state.dart';
 import 'package:readaton/state/utils/image_data.dart';
 
 class Book {
@@ -9,6 +10,7 @@ class Book {
   final ImageData coverImage;
   final List<String> authors;
   final String language;
+  final Map<Platform, String> platformIds;
 
   Book({
     @required this.title,
@@ -18,6 +20,7 @@ class Book {
     @required this.numberOfPages,
     @required this.authors,
     this.language = 'unknown',
+    this.platformIds = const {},
   })
       : assert(title != null),
         assert(subtitle != null),

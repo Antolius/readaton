@@ -17,7 +17,7 @@ class AppState {
   final BookEditorPageState bookEditorPage;
   final StatsDashboardPageState statsDashboardPage;
   final UserState userState;
-  final BooksImportPageState booksImportPageState;
+  final BooksImportPageState booksImportPage;
 
   AppState({
     this.currentSection,
@@ -29,7 +29,7 @@ class AppState {
     this.bookEditorPage,
     this.statsDashboardPage,
     this.userState,
-    this.booksImportPageState,
+    this.booksImportPage,
   });
 
   const AppState.init()
@@ -42,7 +42,7 @@ class AppState {
         bookEditorPage = const BookEditorPageState(),
         statsDashboardPage = const StatsDashboardPageState(),
         userState = const UserState(),
-        booksImportPageState = const BooksImportPageState();
+        booksImportPage = const BooksImportPageState();
 
   AppState copyWith({
     AppSection currentSection,
@@ -57,19 +57,21 @@ class AppState {
     BooksImportPageState booksImportPageState,
   }) {
     var newState = new AppState(
-        currentSection: currentSection ?? this.currentSection,
-        isBooted: isBooted ?? this.isBooted,
-        books: books ?? this.books,
-        authors: authors ?? this.authors,
-        progressions: progressions ?? this.progressions,
-        booksListPage: booksListPage ?? this.booksListPage,
-        bookEditorPage: bookEditorPage ?? this.bookEditorPage,
-        statsDashboardPage: statsDashboardPage ?? this.statsDashboardPage,
-        userState: userState ?? this.userState,
-        booksImportPageState: booksImportPageState ?? this.booksImportPageState,
-      );
+      currentSection: currentSection ?? this.currentSection,
+      isBooted: isBooted ?? this.isBooted,
+      books: books ?? this.books,
+      authors: authors ?? this.authors,
+      progressions: progressions ?? this.progressions,
+      booksListPage: booksListPage ?? this.booksListPage,
+      bookEditorPage: bookEditorPage ?? this.bookEditorPage,
+      statsDashboardPage: statsDashboardPage ?? this.statsDashboardPage,
+      userState: userState ?? this.userState,
+      booksImportPage: booksImportPageState ?? this.booksImportPage,
+    );
     return newState;
   }
 }
 
 enum AppSection { BOOKS, GOALS, STATS }
+
+enum Platform { GOODREADS, ISBN, ISBN13 }
