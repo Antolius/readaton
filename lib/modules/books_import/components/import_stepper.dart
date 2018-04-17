@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:readaton/modules/books_import/components/select_shelves_step.dart'
+as SelectShelvesStep;
 import 'package:readaton/modules/books_import/components/sign_in_step.dart'
     as SignInStep;
 import 'package:readaton/modules/books_import/containers/books_import_page.dart';
@@ -31,10 +33,7 @@ class ImportStepper extends StatelessWidget {
               _canContinue ? () => model.onPickStep(_nextStep) : null,
           steps: <Step>[
             SignInStep.build(context, model),
-            new Step(
-              title: const Text('Pick shelves'),
-              content: const Placeholder(),
-            ),
+            SelectShelvesStep.build(context, model),
             new Step(
               title: const Text('Importing...'),
               content: const Placeholder(),

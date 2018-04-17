@@ -41,12 +41,10 @@ class GoodreadsShelf {
   final String name;
   final int platformId;
   final int numberOfBooks;
-  final bool pickedForImport;
 
   const GoodreadsShelf({
     @required this.name,
     @required this.platformId,
     @required this.numberOfBooks,
-    this.pickedForImport = false,
   });
 }

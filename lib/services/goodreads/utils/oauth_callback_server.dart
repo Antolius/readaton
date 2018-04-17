@@ -2,19 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 class OauthCallbackServer {
-  static OauthCallbackServer _instance;
-
   final StreamController<Null> _onCallbackListener = new StreamController();
 
   bool _initialized = false;
   HttpServer _server;
   Stream<Null> _onCallback;
-
-  factory OauthCallbackServer() =>
-      _instance ??= new OauthCallbackServer._internal();
-
-  OauthCallbackServer._internal();
-
   Stream<Null> get onCallback =>
       _onCallback ??= _onCallbackListener.stream.asBroadcastStream();
 

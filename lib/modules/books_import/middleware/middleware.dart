@@ -44,9 +44,9 @@ Future<List<GoodreadsShelf>> _fetchShelves(
       .findAllElements('user_shelf')
       .map((xmlEl) => new Wrapper.wrapXmlElement(xmlEl))
       .map((xmlEl) => new GoodreadsShelf(
-            name: xmlEl.pluck<String>('name'),
-            platformId: xmlEl.pluck<int>('id'),
-            numberOfBooks: xmlEl.pluck<int>('book_count'),
+            name: xmlEl.pluck('name'),
+            platformId: int.parse(xmlEl.pluck('id')),
+            numberOfBooks: int.parse(xmlEl.pluck('book_count')),
           ))
       .toList(growable: false);
 }

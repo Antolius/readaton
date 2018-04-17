@@ -55,8 +55,8 @@ class AppState {
     StatsDashboardPageState statsDashboardPage,
     UserState userState,
     BooksImportPageState booksImportPageState,
-  }) =>
-      new AppState(
+  }) {
+    var newState = new AppState(
         currentSection: currentSection ?? this.currentSection,
         isBooted: isBooted ?? this.isBooted,
         books: books ?? this.books,
@@ -68,6 +68,8 @@ class AppState {
         userState: userState ?? this.userState,
         booksImportPageState: booksImportPageState ?? this.booksImportPageState,
       );
+    return newState;
+  }
 }
 
 enum AppSection { BOOKS, GOALS, STATS }

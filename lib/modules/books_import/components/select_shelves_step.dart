@@ -24,15 +24,16 @@ _mapState(BooksImportPageState state) {
 
 Widget _buildShelvesStep(BooksImportViewModel model) {
   switch (model.pageState.stepStates[1]) {
-    case ImportStepState.INCOMPLETE:
-    case ImportStepState.COMPLETE:
-      return new _SelectShelvesStep(model: model);
     case ImportStepState.LOADING:
       return new _LoadingStep();
     case ImportStepState.ERROR:
       return new _ErrorLoadingShelvesStep(
         onReloadShelves: () {},
       );
+    case ImportStepState.INCOMPLETE:
+    case ImportStepState.COMPLETE:
+    default:
+      return new _SelectShelvesStep(model: model);
   }
 }
 
@@ -51,7 +52,7 @@ class _SelectShelvesStep extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     new Checkbox(
-                      value: model.pageState.shelvesToImport.contains(shelf),
+                      value: model.pageState.shelvesToImport.contains(shelf.platformId),
                       onChanged: (shouldAdd) => shouldAdd
                           ? model.onSelectShelf(shelf.platformId)
                           : model.onDeselectShelf(shelf.platformId),

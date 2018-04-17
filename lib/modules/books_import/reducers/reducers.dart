@@ -29,13 +29,7 @@ final reducers = <ReducerBinding<AppState, dynamic>>[
   ),
   new ReducerBinding<AppState, SignOutFromGoodreadsAction>(
     (state, _) => state.copyWith(
-          booksImportPageState: new BooksImportPageState(
-            stepStates: const [
-              ImportStepState.INCOMPLETE,
-              ImportStepState.INCOMPLETE,
-              ImportStepState.INCOMPLETE,
-            ],
-          ),
+          booksImportPageState: new BooksImportPageState(),
         ),
   ),
   new ReducerBinding<AppState, PickImportBooksStepAction>(
@@ -91,7 +85,7 @@ final reducers = <ReducerBinding<AppState, dynamic>>[
               true,
               state.booksImportPageState.shelvesToImport.length > 1
             ],
-            shelves: new List.from(
+            shelvesToImport: new List.from(
               state.booksImportPageState.shelvesToImport,
             )..remove(action.shelfId),
           ),
